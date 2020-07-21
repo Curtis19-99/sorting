@@ -38,8 +38,33 @@ public class Sorter {
         System.arraycopy(data, rightIndex, merged, mergedIndex, to - rightIndex);
       }
 
-      System.arraycopy(merged, 0, data, from, merged.length);
+      System.arraycopy(merged, 0, data, from, merged.length); 
 
+    }
+  }
+
+  public static void quickSort(int[] data) {
+    quickSort(data, 0, data.length);
+  }
+
+  public static void quickSort(int[] data, int fromIndex, int toIndex) {
+    if (toIndex > fromIndex + 1) {
+      int pivot = data[fromIndex];
+      int partitionIndex = fromIndex;
+      for (int i = fromIndex + 1; i < toIndex; i++) {
+        int current = data[i];
+        if (current <= pivot) {
+          partitionIndex++;
+          if (i > partitionIndex) {
+            data[i] = data[partitionIndex];
+            data[partitionIndex] = current;
+          }
+        }
+      }
+      data[fromIndex] = data[partitionIndex];
+      data[partitionIndex] = pivot;
+      quickSort(data, fromIndex, partitionIndex);
+      quickSort(data, partitionIndex + 1, toIndex);
     }
   }
 
